@@ -23,6 +23,19 @@ from conans import ConanFile, CMake
 def option_on_off(option):
     return "ON" if option else "OFF"
 
+def get_content(path):
+    print(os.path.dirname(os.path.abspath(__file__)))
+    print(os.getcwd())
+    with open(path, 'r') as f:
+        return f.read()
+
+def get_version():
+    return get_content('conan_version')
+
+def get_channel():
+    return get_content('conan_channel')
+
+
 class BitprimDatabaseConan(ConanFile):
     name = "bitprim-database"
     version = "0.7"
@@ -44,12 +57,14 @@ class BitprimDatabaseConan(ConanFile):
 
 
     generators = "cmake"
+
+    exports = "conan_channel", "conan_version"
     exports_sources = "src/*", "CMakeLists.txt", "cmake/*", "bitprim-databaseConfig.cmake.in", "bitprimbuildinfo.cmake", "include/*", "test/*", "tools/*"
     package_files = "build/lbitprim-database.a"
     build_policy = "missing"
 
     requires = (("boost/1.66.0@bitprim/stable"),
-                ("bitprim-core/0.7@bitprim/testing"))
+                ("bitprim-core/0.7@bitprim/%s" % get_channel()))
 
     @property
     def msvc_mt_build(self):
