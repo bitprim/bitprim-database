@@ -38,7 +38,10 @@ def get_channel():
 
 class BitprimDatabaseConan(ConanFile):
     name = "bitprim-database"
-    version = "0.7"
+    
+    # version = "0.7"
+    version = get_version()
+
     license = "http://www.boost.org/users/license.html"
     url = "https://github.com/bitprim/bitprim-database/tree/conan-build/conanfile.py"
     description = "Bitcoin High Performance Blockchain Database"
@@ -64,7 +67,7 @@ class BitprimDatabaseConan(ConanFile):
     build_policy = "missing"
 
     requires = (("boost/1.66.0@bitprim/stable"),
-                ("bitprim-core/0.7@bitprim/%s" % get_channel()))
+                ("bitprim-core/0.8@bitprim/%s" % get_channel()))
 
     @property
     def msvc_mt_build(self):
