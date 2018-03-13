@@ -22,7 +22,7 @@ cmake_minimum_required(VERSION 3.4)
 # bitprim-database
 #==============================================================================
 project(bitprim-database
-        VERSION 0.7.0
+        VERSION 0.8.0
         LANGUAGES CXX C)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -215,6 +215,7 @@ add_library(bitprim-database ${MODE}
         src/primitives/slab_manager.cpp
         src/result/block_result.cpp
         src/result/transaction_result.cpp
+        src/result/transaction_unconfirmed_result.cpp
         )
 
 
@@ -500,6 +501,7 @@ set(_bitprim_headers
         bitcoin/database/primitives/slab_manager.hpp
         bitcoin/database/result/block_result.hpp
         bitcoin/database/result/transaction_result.hpp
+        bitcoin/database/result/transaction_unconfirmed_result.hpp
         bitcoin/database/settings.hpp
         bitcoin/database/store.hpp
         bitcoin/database/version.hpp

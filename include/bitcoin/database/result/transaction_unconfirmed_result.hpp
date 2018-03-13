@@ -16,11 +16,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_DATABASE_BLOCK_RESULT_HPP
-#define LIBBITCOIN_DATABASE_BLOCK_RESULT_HPP
+#ifndef LIBBITCOIN_DATABASE_TRANSACTION_UNCONFIRMED_RESULT_HPP
+#define LIBBITCOIN_DATABASE_TRANSACTION_UNCONFIRMED_RESULT_HPP
 
-#include <cstdint>
 #include <cstddef>
+#include <cstdint>
 #include <bitcoin/bitcoin.hpp>
 #include <bitcoin/database/define.hpp>
 #include <bitcoin/database/memory/memory.hpp>
@@ -28,54 +28,38 @@
 namespace libbitcoin {
 namespace database {
 
-/// Deferred read block result.
-class BCD_API block_result
+/// Deferred read transaction result.
+class BCD_API transaction_unconfirmed_result
 {
 public:
-    block_result();
-    block_result(const memory_ptr slab);
-    block_result(const memory_ptr slab, hash_digest&& hash, uint32_t height);
-    block_result(const memory_ptr slab, const hash_digest& hash,
-        uint32_t height);
+    transaction_unconfirmed_result();
+    transaction_unconfirmed_result(const memory_ptr slab);
+    transaction_unconfirmed_result(const memory_ptr slab, hash_digest&& hash,
+        uint32_t arrival_time);
+    transaction_unconfirmed_result(const memory_ptr slab, const hash_digest& hash,
+        uint32_t arrival_time);
 
-    /// True if this block result is valid (found).
+    /// True if this transaction result is valid (found).
     operator bool() const;
 
     /// Reset the slab pointer so that no lock is held.
     void reset();
 
-    /// The block header hash (from cache).
+    /// The transaction hash (from cache).
     const hash_digest& hash() const;
 
-    /// The block header.
-    chain::header header() const;
+    /// The time when the transaction arrive
+    uint32_t arrival_time() const;
 
-    /// The height of this block in the chain.
-    size_t height() const;
+    /// The output at the specified index within this transaction.
+    chain::output output(uint32_t index) const;
 
-    /// The header.bits of this block.
-    uint32_t bits() const;
-
-    /// The header.timestamp of this block.
-    uint32_t timestamp() const;
-
-    /// The header.version of this block.
-    uint32_t version() const;
-
-    /// The number of transactions in this block.
-    size_t transaction_count() const;
-
-    /// A transaction hash where index < transaction_count.
-    hash_digest transaction_hash(size_t index) const;
-
-    /// An ordered set of all transaction hashes in the block.
-    hash_list transaction_hashes() const;
-
-    uint64_t serialized_size() const;
+    /// The transaction.
+    chain::transaction transaction() const;
 
 private:
     memory_ptr slab_;
-    const uint32_t height_;
+    const uint32_t arrival_time_;
     const hash_digest hash_;
 };
 
