@@ -111,7 +111,7 @@ test_script:
       $ExecutionContext.InvokeCommand.ExpandString($a)
       Write-Host $Env:BITPRIM_CONAN_VERSION
       Write-Host $Env:BITPRIM_CONAN_CHANNEL
-      Write-Host $Env:%BITPRIM_BRANCH
+      Write-Host $Env:BITPRIM_BRANCH
       Write-Host $Env:BITPRIM_FULL_BUILD
       Write-Host $Env:BITPRIM_BUILD_NUMBER
 
