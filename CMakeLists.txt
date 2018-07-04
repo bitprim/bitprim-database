@@ -130,11 +130,6 @@ if (NOT USE_CONAN)
     endif()
 endif()
 
-#if (UNIX)
-#  set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/usr/local/lib/cmake")
-#elseif (WIN32)
-#  set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "cmake")
-#endif()
 
 # Set flags.
 #==============================================================================
@@ -142,11 +137,9 @@ include(CheckCXXCompilerFlag)
 
 # Including common functions
 #------------------------------------------------------------------------------
-#set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/ci_utils/cmake)
 
 include(BitprimTools)
-
 
 
 # Warn on all stuff.
@@ -256,8 +249,11 @@ target_include_directories(bitprim-database PUBLIC
 
 
 target_compile_definitions(bitprim-database PUBLIC -DBITPRIM_BUILD_NUMBER="\\"${BITPRIM_BUILD_NUMBER}\\"")
+target_compile_definitions(bitprim-database PUBLIC -DBITPRIM_PROJECT_VERSION="\\"${BITPRIM_PROJECT_VERSION}\\"") #TODO(fernando): manage with Conan????
 
-target_compile_definitions(bitprim-database PUBLIC -DBCD_STATIC -DBC_STATIC)
+if (NOT ENABLE_SHARED)
+    target_compile_definitions(bitprim-database PUBLIC -DBCD_STATIC -DBC_STATIC)
+endif()
 
 # if (NOT NO_CONAN_AT_ALL)
 #   target_link_libraries(bitprim-database PUBLIC ${CONAN_LIBS})

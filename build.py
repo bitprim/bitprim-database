@@ -42,10 +42,6 @@ if __name__ == "__main__":
             opts_btc["%s:currency" % name] = "BTC"
             # opts_ltc["%s:currency" % name] = "LTC"
 
-            # filtered_builds.append([settings, opts_bch, env_vars, build_requires])
-            # filtered_builds.append([settings, opts_btc, env_vars, build_requires])
-            # # filtered_builds.append([settings, opts_ltc, env_vars, build_requires])
-
             handle_microarchs("%s:microarchitecture" % name, marchs, filtered_builds, settings, opts_bch, env_vars, build_requires)
             handle_microarchs("%s:microarchitecture" % name, marchs, filtered_builds, settings, opts_btc, env_vars, build_requires)
             # handle_microarchs("%s:microarchitecture" % name, marchs, filtered_builds, settings, opts_ltc, env_vars, build_requires)
