@@ -60,7 +60,6 @@ install:
   - conan user # It creates the conan data directory
 
 test_script:
-  - @ECHO ON
   - git submodule init
   # - git submodule update --remote
   - git submodule update
