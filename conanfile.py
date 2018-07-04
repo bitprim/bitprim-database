@@ -81,7 +81,7 @@ class BitprimDatabaseConan(ConanFile):
             return self.options.shared
 
     def requirements(self):
-        self.requires("boost/1.67.0@bitprim/stable")
+        self.requires("boost/1.66.0@bitprim/stable")
         self.requires("bitprim-core/0.X@%s/%s" % (self.user, self.channel))
 
 
