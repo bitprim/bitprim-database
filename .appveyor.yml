@@ -107,7 +107,13 @@ test_script:
   # - python ci_utils/set_envvars_and_files.py
   - ps: |
       $a = python ci_utils/set_envvars_and_files.py
+      Write-Host $a
       $ExecutionContext.InvokeCommand.ExpandString($a)
+      Write-Host $Env:BITPRIM_CONAN_VERSION
+      Write-Host $Env:BITPRIM_CONAN_CHANNEL
+      Write-Host $Env:%BITPRIM_BRANCH
+      Write-Host $Env:BITPRIM_FULL_BUILD
+      Write-Host $Env:BITPRIM_BUILD_NUMBER
 
   - echo %BITPRIM_CONAN_VERSION%
   - echo %BITPRIM_CONAN_CHANNEL%
