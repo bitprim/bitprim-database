@@ -60,6 +60,7 @@ install:
   - conan user # It creates the conan data directory
 
 test_script:
+  - @ECHO ON
   - git submodule init
   # - git submodule update --remote
   - git submodule update
@@ -104,7 +105,10 @@ test_script:
   #     }
 
 
-  - python ci_utils/set_envvars_and_files.py
+  # - python ci_utils/set_envvars_and_files.py
+  - ps: |
+      $a = python ci_utils/set_envvars_and_files.py
+      $ExecutionContext.InvokeCommand.ExpandString($a)
 
   - echo %BITPRIM_CONAN_VERSION%
   - echo %BITPRIM_CONAN_CHANNEL%
