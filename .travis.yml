@@ -60,25 +60,6 @@ install:
 script:
   - git fetch --unshallow
 
-  # - export BITPRIM_BRANCH="${TRAVIS_BRANCH}"
-  # - |
-  #   if [[ "${TRAVIS_BRANCH}" = "dev" ]]; then
-  #     export BITPRIM_CONAN_CHANNEL="testing"
-  #     export BITPRIM_FULL_BUILD=0
-  #   elif  [[ "${TRAVIS_BRANCH}" = "release"* ]]; then
-  #     export BITPRIM_CONAN_CHANNEL="prerelease"
-  #     export BITPRIM_FULL_BUILD=1
-  #   elif  [[ "${TRAVIS_BRANCH}" = "hotfix"* ]]; then
-  #     export BITPRIM_CONAN_CHANNEL="prerelease"
-  #     export BITPRIM_FULL_BUILD=1
-  #   elif  [[ "${TRAVIS_BRANCH}" = "feature"* ]]; then
-  #     export BITPRIM_CONAN_CHANNEL="${TRAVIS_BRANCH}"
-  #     export BITPRIM_FULL_BUILD=0
-  #   else
-  #     export BITPRIM_CONAN_CHANNEL="prerelease"
-  #     export BITPRIM_FULL_BUILD=1
-  #   fi
-
   # #TODO(fernando): Use lasote/conanclang50 for checking formating and other clang-tools related
   # - |
   #   if [[ "${CHECK_FORMATTING}" == "true" ]]; then
@@ -271,8 +252,8 @@ jobs:
         - conan user
         - conan user ${CONAN_LOGIN_USERNAME} -r bitprim_temp -p ${CONAN_PASSWORD}
         - conan user
-        - conan alias "bitprim-core/0.X@bitprim/${BITPRIM_CONAN_CHANNEL}" "bitprim-core/${BITPRIM_CONAN_VERSION}@bitprim/${BITPRIM_CONAN_CHANNEL}"
-        - conan upload "bitprim-core/0.X@bitprim/${BITPRIM_CONAN_CHANNEL}" --all -r bitprim_temp
+        - conan alias "bitprim-database/0.X@bitprim/${BITPRIM_CONAN_CHANNEL}" "bitprim-database/${BITPRIM_CONAN_VERSION}@bitprim/${BITPRIM_CONAN_CHANNEL}"
+        - conan upload "bitprim-database/0.X@bitprim/${BITPRIM_CONAN_CHANNEL}" --all -r bitprim_temp
 
 # Push to repos ------------------------------------------------------
     - stage: push to repos
