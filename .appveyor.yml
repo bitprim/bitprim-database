@@ -64,64 +64,12 @@ test_script:
   # - git submodule update --remote
   - git submodule update
   # - git fetch --unshallow
-  
-  # - ps: |
-  #     $Env:BITPRIM_BRANCH = $Env:APPVEYOR_REPO_BRANCH
 
-  #     if ($Env:APPVEYOR_REPO_BRANCH -ceq "dev") {
-  #       $Env:BITPRIM_CONAN_CHANNEL = "testing"
-  #       $Env:BITPRIM_FULL_BUILD = 0
-  #     }
-  #     elseif ($Env:APPVEYOR_REPO_BRANCH.StartsWith("release")) {
-  #       $Env:BITPRIM_CONAN_CHANNEL = "stable"
-  #       $Env:BITPRIM_FULL_BUILD = 1
-  #     }
-  #     elseif ($Env:APPVEYOR_REPO_BRANCH.StartsWith("hotfix")) {
-  #       $Env:BITPRIM_CONAN_CHANNEL = "stable"
-  #       $Env:BITPRIM_FULL_BUILD = 1
-  #     }
-  #     elseif ($Env:APPVEYOR_REPO_BRANCH.StartsWith("feature")) {
-  #       $Env:BITPRIM_CONAN_CHANNEL = $Env:APPVEYOR_REPO_BRANCH
-  #       $Env:BITPRIM_FULL_BUILD = 0
-  #     }
-  #     else {
-  #       $Env:BITPRIM_CONAN_CHANNEL = "stable"
-  #       $Env:BITPRIM_FULL_BUILD = 1
-  #     }
-      
-
-  # - python ci_utils/print_version.py
-
-  # - for /f %%i in ('python ci_utils/print_version.py') do set BITPRIM_BUILD_NUMBER=%%i
-  # - set BITPRIM_CONAN_VERSION=%BITPRIM_BUILD_NUMBER%
-  # - echo %BITPRIM_BUILD_NUMBER%
-  # - echo %BITPRIM_CONAN_VERSION%
-
-  # - ps: |
-  #     if ([System.IO.File]::Exists("conan_version")) {
-  #       Write-Host "Creating conan_version file"
-  #       $Env:BITPRIM_BUILD_NUMBER | Out-File conan_version
-  #     }
-
-
-  # - python ci_utils/set_envvars_and_files.py
   - ps: |
       $a = python ci_utils/set_envvars_and_files.py
       Write-Host $a
-      # $ExecutionContext.InvokeCommand.ExpandString($a)
       Invoke-Expression $a
-      Write-Host $Env:BITPRIM_CONAN_VERSION
-      Write-Host $Env:BITPRIM_CONAN_CHANNEL
-      Write-Host $Env:BITPRIM_BRANCH
-      Write-Host $Env:BITPRIM_FULL_BUILD
-      Write-Host $Env:BITPRIM_BUILD_NUMBER
 
-  - echo %BITPRIM_CONAN_VERSION%
-  - echo %BITPRIM_CONAN_CHANNEL%
-  - echo %BITPRIM_BRANCH%
-  - echo %BITPRIM_FULL_BUILD%
-  - echo %BITPRIM_BUILD_NUMBER%
-  - type conan_version
   - python build.py
 
 
